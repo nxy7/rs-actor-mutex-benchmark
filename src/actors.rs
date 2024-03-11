@@ -35,20 +35,20 @@ impl BenchActor {
                 match m {
                     Message::IncreaseBySync(i, r) => {
                         self.count += i;
-                        r.send(()).unwrap();
+                        r.send(());
                     }
                     Message::DecreaseBySync(i, r) => {
                         self.count -= i;
-                        r.send(()).unwrap();
+                        r.send(());
                     }
                     Message::Get(r) => {
-                        r.send(self.count).unwrap();
+                        r.send(self.count);
                     }
                     Message::IncreaseBy(i) => {
                         self.count += i;
                         if self.count == REACHED_COUNT_SIGNAL_AMOUNT {
                             if let Some(tx) = self.tx {
-                                tx.send(()).unwrap();
+                                tx.send(());
                                 break;
                             }
                         }
@@ -57,7 +57,7 @@ impl BenchActor {
                         self.count -= i;
                         if self.count == REACHED_COUNT_SIGNAL_AMOUNT {
                             if let Some(tx) = self.tx {
-                                tx.send(()).unwrap();
+                                tx.send(());
                                 break;
                             }
                         }
